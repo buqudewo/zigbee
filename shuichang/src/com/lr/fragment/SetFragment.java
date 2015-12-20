@@ -351,8 +351,9 @@ public class SetFragment extends Fragment implements GetService {
 			throws IOException {
 		// SocketHandl socketHandl = new SocketHandl(getActivity());
 		MyApplication myApplication = (MyApplication) getActivity().getApplicationContext();
-		HSHead head = new HSHead((byte) 3, DeviceType.Water, id, new byte[] {
-				ZigBeeFixUtils.getOffsetByDeiveId(myApplication,id), 0x78, (byte) 0xA0, (byte) 0x9C, 0x00, 0x00, 0x00, 0x00 },
+		byte offset=ZigBeeFixUtils.getOffsetByDeiveId(myApplication,id);
+		HSHead head = new HSHead((byte) 3, DeviceType.Water, ZigBeeFixUtils.getMianMachineDeviceId(id, offset), new byte[] {
+				offset, 0x78, (byte) 0xA0, (byte) 0x9C, 0x00, 0x00, 0x00, 0x00 },
 				(short) 19, (byte) 2);
 		HSBody body = new HSBody(new byte[] { (byte) num, 85,
 				(byte) (min * 10), (byte) (max * 10) });

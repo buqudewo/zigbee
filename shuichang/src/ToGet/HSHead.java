@@ -46,15 +46,16 @@ public class HSHead implements IHSHead {
 		default:
 			break;
 		}
+		
 		deviceID = Utility.byteToHex(bytes[6]) + "-"
 				+ Utility.byteToHex(bytes[7]) + "-"
 				+ Utility.byteToHex(bytes[8]) + "-"
 				+ Utility.byteToHex(bytes[9]);
 		serialNo=Arrays.copyOfRange(bytes, 10, 18);
 		serialStr=convertSerialNo(serialNo);
-		
-		System.out.println("serialNo:" + (int)serialNo[0]+" bytes[10] "+bytes[10]);
 		offset=bytes[10];
+		System.out.println("serialNo:" + (int)serialNo[0]+" bytes[10] "+bytes[10]);
+	
 		System.out.println("bytes[18]" + bytes[18]);
 		System.out.println("bytes[19]" + bytes[19]);
 

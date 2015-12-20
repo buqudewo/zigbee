@@ -164,7 +164,7 @@ public class Myservice extends Service {
 								end = end + 26;
 								HSHead head3 = new HSHead(head1);
 								if (head3.GetBodyLength() == 0) {
-									hashMap.put(head3.GetDeviceID(),
+									hashMap.put(ZigBeeFixUtils.getRealDeviceId(head3.GetDeviceID(), head3.getOffset()),
 											(head3.GetOrderWord() + "")
 											.equals("-3") ? "离线" : "在线");
 								}
@@ -176,6 +176,7 @@ public class Myservice extends Service {
 						
 						MyApplication myApplication = (MyApplication) context
 								.getApplicationContext();
+						
 						ZigBeeFixUtils.setOffsetByDeiveId(myApplication,head2.GetDeviceID(),head2.getOffset());
 
 						if ((head2.GetOrderWord() + "").equals("3")) {// 如果是类容的时候
@@ -237,7 +238,8 @@ public class Myservice extends Service {
 							stateDev.put(head2.GetDeviceID(), sta);
 							myinterface.state(stateDev, "e", null);
 						}
-						hashMap.put(head2.GetDeviceID(),
+						
+						hashMap.put(ZigBeeFixUtils.getRealDeviceId(head2.GetDeviceID(), head2.getOffset()),
 								(head2.GetOrderWord() + "").equals("-3") ? "离线"
 										: "在线");
 						Log.e("sta", hashMap.toString());
