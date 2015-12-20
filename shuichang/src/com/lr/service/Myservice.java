@@ -186,9 +186,9 @@ public class Myservice extends Service {
 									lenhead, lenhead + 40);
 							String message = Utility.getHexString(copyOfRange);
 							ToSoA toSoA = new ToSoA(message, context);
-							toSoA.getWay(head2.GetDeviceID());
-							Fram fram = SavaFra.getFram(head2.GetDeviceID());// 保持对象的多样
-							hampfra.put(head2.GetDeviceID(), fram);
+							toSoA.getWay(ZigBeeFixUtils.getRealDeviceId(head2.GetDeviceID(), head2.getOffset()));
+							Fram fram = SavaFra.getFram(ZigBeeFixUtils.getRealDeviceId(head2.GetDeviceID(), head2.getOffset()));// 保持对象的多样
+							hampfra.put(ZigBeeFixUtils.getRealDeviceId(head2.GetDeviceID(), head2.getOffset()), fram);
 							cApplicationontext.hashMapFram = hampfra;
 							if (myinterface != null) {
 								myinterface.state(hashMap, "3", null);// 同样通接口回调，发广播
@@ -198,17 +198,17 @@ public class Myservice extends Service {
 								HashMap<String, Integer> map = cApplicationontext
 										.getHashMap();
 
-								if (map.get(head2.GetDeviceID()) == 0) {
+								if (map.get(ZigBeeFixUtils.getRealDeviceId(head2.GetDeviceID(), head2.getOffset())) == 0) {
 									if ("1e".equals(d)) {
 										String state = Utility
 												.getHexString((Arrays
 														.copyOfRange(range,
 																lenhead + 41,
 																lenhead + 45)));
-										map.put(head2.GetDeviceID(), 2);
-										stateDev.put(head2.GetDeviceID(), state);
+										map.put(ZigBeeFixUtils.getRealDeviceId(head2.GetDeviceID(), head2.getOffset()), 2);
+										stateDev.put(ZigBeeFixUtils.getRealDeviceId(head2.GetDeviceID(), head2.getOffset()), state);
 										myinterface.state(stateDev, "e",
-												head2.GetDeviceID());
+												ZigBeeFixUtils.getRealDeviceId(head2.GetDeviceID(), head2.getOffset()));
 
 									}
 								}
@@ -216,7 +216,7 @@ public class Myservice extends Service {
 							}
 						}
 						if ((head2.GetOrderWord() + "").equals("19")) {
-							filterState.put(head2.GetDeviceID(), "19");
+							filterState.put(ZigBeeFixUtils.getRealDeviceId(head2.GetDeviceID(), head2.getOffset()), "19");
 							myinterface.state(filterState, 19 + "", null);
 
 						}
@@ -235,7 +235,7 @@ public class Myservice extends Service {
 								}
 
 							}
-							stateDev.put(head2.GetDeviceID(), sta);
+							stateDev.put(ZigBeeFixUtils.getRealDeviceId(head2.GetDeviceID(), head2.getOffset()), sta);
 							myinterface.state(stateDev, "e", null);
 						}
 						
