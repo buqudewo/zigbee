@@ -56,7 +56,7 @@ public class ZigBeeFixUtils {
 				+ Utility.byteToHex(bytes[1]) + "-"
 				+ Utility.byteToHex(bytes[2]) + "-"
 				+ Utility.byteToHex((byte)(bytes[3]-offset));
-		System.out.println("获取主机 deviceID :"+deviceID +"offset :"+offset);
+		System.out.println(" deviceID :"+deviceID +"offset :"+offset);
 		return deviceID;
 		
 	}
